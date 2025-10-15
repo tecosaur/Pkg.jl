@@ -150,7 +150,6 @@ function create_mode(repl::REPL.AbstractREPL, main::LineEdit.Prompt)
     hp.mode_mapping[:pkg] = pkg_mode
     pkg_mode.hist = hp
 
-    search_prompt, skeymap = LineEdit.setup_search_keymap(hp)
     prefix_prompt, prefix_keymap = LineEdit.setup_prefix_keymap(hp, pkg_mode)
 
     pkg_mode.on_done = (s, buf, ok) -> Base.@invokelatest(on_done(s, buf, ok, repl))
@@ -182,7 +181,7 @@ function create_mode(repl::REPL.AbstractREPL, main::LineEdit.Prompt)
     end
 
     b = Dict{Any, Any}[
-        skeymap, repl_keymap, mk, prefix_keymap, LineEdit.history_keymap,
+        repl_keymap, mk, prefix_keymap, LineEdit.history_keymap,
         LineEdit.default_keymap, LineEdit.escape_defaults,
     ]
     pkg_mode.keymap_dict = LineEdit.keymap(b)
